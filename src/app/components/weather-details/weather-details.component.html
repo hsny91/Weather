@@ -1,0 +1,30 @@
+<div [@simpleFadeAnimation]="'in'">
+  <div [@simpleFadeAnimation]="'in'" *ngFor="let item of weatherData$ |async">
+    <div class="well flex">
+      <div>
+        <h3 [innerHtml]="item.attrs.label"></h3>
+        <h4>Current conditions: {{ item.weather.current.weather[0].main }}</h4>
+        <h4>Temperatures today:</h4>
+        <p *ngIf="item?.weather" >Current {{ item?.weather?.current?.temp }} - Max
+            {{ item.weather.daily[0].temp.min }} - Min
+            {{ item.weather.daily[0].temp.max }}</p>
+        <p  >
+          <a routerLink="forecast/{{item.attrs.detail}}">Show 5-day forecast for Rancho Cordova</a>
+        </p>
+      </div>
+      <div>
+        <span (click)="removeWeatherDetail(item.attrs.detail)" class="close">×</span>
+        <img *ngIf="item.weather.current.weather[0].main == ('Clouds' || 'Rain'|| 'Snow'|| 'Sun'); else iconTemplate"
+        src="https://www.angulartraining.com/images/weather/{{item.weather.current.weather[0].main| lowercase}}.png"
+        alt="Weather Description Icon"
+      />
+      <ng-template #iconTemplate>
+        <img class="weather-icon"
+        src="http://openweathermap.org/img/wn/{{item.weather.current.weather[0].icon}}@2x.png"
+        alt="Weather Description Icon"
+      />
+      </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

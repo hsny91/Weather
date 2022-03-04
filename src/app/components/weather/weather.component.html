@@ -1,0 +1,10 @@
+<div class="container-fluid">
+  <app-location (getLocation)="start($event)"></app-location>
+  <app-weather-details
+    [locationData$]="locationInfo$"
+    [weatherData$]="weatherInfo$"
+    (removeZip)="removeZip($event)"
+  ></app-weather-details>
+</div>
+<hr />
+<router-outlet></router-outlet>

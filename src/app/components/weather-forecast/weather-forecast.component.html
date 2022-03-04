@@ -1,0 +1,35 @@
+<h4>Template for 5-day forecast page:</h4>
+<div class="container-fluid" *ngFor="let item of dailyWeather$ | async">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        5-day forecast for <span [innerHtml]="item.attrs.label"></span>
+      </h3>
+    </div>
+    <ul class="list-group">
+      <li
+        *ngFor="let item of item.weather.daily.slice(0, -3)"
+        class="list-group-item"
+      >
+        <span> {{ item.dt * 1000 | date: "EEEE, MMMM d" }} : </span>
+        <span> {{ item.weather[0].main }} - </span>
+        <span> Min: {{ item.temp.min }} - </span>
+        <span> Max: {{ item.temp.max }} </span>
+        <img
+          class="icon"
+          src="http://openweathermap.org/img/wn/{{
+            item.weather[0].icon
+          }}@2x.png"
+        />
+      </li>
+    </ul>
+  </div>
+  <button
+    (click)="backToMainPage()"
+    class="btn btn-success"
+    tabindex="0"
+    id="mainPageBtn"
+  >
+    &lt; Back to main page
+  </button>
+</div>

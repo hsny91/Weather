@@ -1,0 +1,37 @@
+<form [formGroup]="addZipForm" (ngSubmit)="addLocation()">
+  <div class="well">
+    <h2>Enter a zipcode:</h2>
+    <input
+      formControlName="zipcode"
+      class="form-control"
+      placeholder="Zipcode"
+      type="text"
+      id="addLocation"
+    />
+    <br />
+    <div
+      class="alert alert-danger"
+      *ngIf="
+        addZipForm.get('zipcode')?.invalid && addZipForm.get('zipcode')?.touched
+      "
+    >
+      <p *ngIf="addZipForm.get('zipcode')?.errors?.['required']">
+        Required field.
+      </p>
+      <p *ngIf="addZipForm.get('zipcode')?.errors?.['minlength']">
+        Zipcode cannot be less than 4 digits.
+      </p>
+      <p *ngIf="addZipForm.get('zipcode')?.errors?.['maxlength']">
+        Zipcode cannot be more than 6 digits.
+      </p>
+    </div>
+    <button
+      [disabled]="addZipForm.invalid"
+      type="submit"
+      class="btn btn-primary"
+      id="addLocationBtn"
+    >
+      Add location
+    </button>
+  </div>
+</form>
